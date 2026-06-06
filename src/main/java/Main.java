@@ -11,8 +11,9 @@ public class Main {
         while (true) {
             System.out.print("$ ");
             command = scanner.nextLine();
-            // Lógica para implementar el comando builtin "exit". Usamos equals para comparar
-            // dos Strings y el builtin exit para salir del programa.
+            // Lógica temporal (elsif anidados kekw) para usar los builtins del shell, con el que invocamos
+            // los métodos de la clase Builtin ;) Probablemente hay que hacer algún cambio porque si esto escala
+            // a futuro es una liada
             if (command.equals("exit")) {
                 Builtin.exit();
             } else if (command.startsWith("echo ")) {

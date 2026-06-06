@@ -1,13 +1,11 @@
 public class Builtin {
 
-    static String input = Main.command;
-
     static void exit() {
         System.exit(0);
     }
 
     static void echo() {
-        int index = input.indexOf(" ");
-        System.out.println(input.substring(index + 1));
+        int index = Main.command.indexOf(" ");
+        System.out.println(Main.command.substring(index + 1));
     }
 }
