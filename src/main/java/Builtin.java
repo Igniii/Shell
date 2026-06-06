@@ -6,7 +6,7 @@ public class Builtin {
 
     static void echo() {
         String input = Main.command;
-        int index = input.indexOf(" ");
+        int index = input.indexOf("");
 
         System.out.println(input.substring(index));
     }
