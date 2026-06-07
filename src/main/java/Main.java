@@ -18,6 +18,8 @@ public class Main {
                 Builtin.exit();
             } else if (command.startsWith("echo ")) {
                 Builtin.echo();
+            } else if (command.startsWith("type ")) {
+                Builtin.type();
             } else {
                 System.out.println(command + ": command not found");
             }
