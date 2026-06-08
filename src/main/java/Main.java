@@ -7,21 +7,21 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
 
-        // Implementando un bucle REPL para que el shell se ejecute constantemente
         while (true) {
             System.out.print("$ ");
             command = scanner.nextLine();
-            // Lógica temporal (elsif anidados kekw) para usar los builtins del shell, con el que invocamos
-            // los métodos de la clase Builtin ;) Probablemente hay que hacer algún cambio porque si esto escala
-            // a futuro es una liada
+
             if (command.equals("exit")) {
                 Builtin.exit();
-            } else if (command.startsWith("echo ")) {
+            } else if (command.equals("echo") || command.startsWith("echo ")) {
                 Builtin.echo();
             } else if (command.startsWith("type ")) {
                 Builtin.type();
             } else {
-                System.out.println(command + ": command not found");
+                Builtin builtin = new Builtin();
+                if (!builtin.run(Main.command)) {
+                    System.out.println(command + ": command not found");
+                }
             }
         }
     }

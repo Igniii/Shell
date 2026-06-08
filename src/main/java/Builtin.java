@@ -10,7 +10,11 @@ public class Builtin {
 
     static void echo() {
         int index = Main.command.indexOf(" ");
-        System.out.println(Main.command.substring(index + 1));
+        if (index == -1) {
+            System.out.println();
+        } else {
+            System.out.println(Main.command.substring(index + 1));
+        }
     }
 
     static void type() {
@@ -29,23 +33,43 @@ public class Builtin {
             return;
         }
 
-        String commandName = Main.command.substring(5);
+        String cmd = Main.command.substring(5).trim().split(" ")[0];
         String pathEnv = System.getenv("PATH");
         String separator = System.getProperty("path.separator");
 
         for (String dir : pathEnv.split(
             java.util.regex.Pattern.quote(separator)
         )) {
-            Path executable = Paths.get(dir, commandName);
-
+            Path executable = Paths.get(dir, cmd);
             if (Files.exists(executable) && Files.isExecutable(executable)) {
                 System.out.println(
-                    commandName + " is " + executable.toAbsolutePath()
+                    cmd + " is " + executable.toAbsolutePath()
                 );
                 return;
             }
         }
 
-        System.out.println(commandName + ": not found");
+        System.out.println(cmd + ": not found");
+    }
+
+    boolean run(String commandLine) throws Exception {
+        String[] parts = commandLine.split(" ");
+        String program = parts[0];
+        String pathEnv = System.getenv("PATH");
+        String separator = System.getProperty("path.separator");
+
+        for (String dir : pathEnv.split(
+            java.util.regex.Pattern.quote(separator)
+        )) {
+            Path executable = Paths.get(dir, program);
+            if (Files.isExecutable(executable)) {
+                ProcessBuilder pb = new ProcessBuilder(parts);
+                pb.inheritIO();
+                Process process = pb.start();
+                process.waitFor();
+                return true;
+            }
+        }
+        return false;
     }
 }
