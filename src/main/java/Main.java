@@ -17,6 +17,8 @@ public class Main {
                 Builtin.echo();
             } else if (command.startsWith("type ")) {
                 Builtin.type();
+            } else if (command.equals("pwd")) {
+                Builtin.pwd();
             } else {
                 Builtin builtin = new Builtin();
                 if (!builtin.run(Main.command)) {

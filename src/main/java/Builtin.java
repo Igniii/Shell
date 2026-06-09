@@ -42,9 +42,7 @@ public class Builtin {
         )) {
             Path executable = Paths.get(dir, cmd);
             if (Files.exists(executable) && Files.isExecutable(executable)) {
-                System.out.println(
-                    cmd + " is " + executable.toAbsolutePath()
-                );
+                System.out.println(cmd + " is " + executable.toAbsolutePath());
                 return;
             }
         }
@@ -71,5 +69,10 @@ public class Builtin {
             }
         }
         return false;
+    }
+
+    static void pwd() {
+        String currentDirectory = Paths.get("").toAbsolutePath().toString();
+        System.out.println(currentDirectory);
     }
 }
