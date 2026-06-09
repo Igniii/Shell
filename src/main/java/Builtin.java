@@ -32,6 +32,10 @@ public class Builtin {
             System.out.println("type is a shell builtin");
             return;
         }
+        if (Main.command.equals("type pwd")) {
+            System.out.println("pwd is a shell builtin");
+            return;
+        }
 
         String cmd = Main.command.substring(5).trim().split(" ")[0];
         String pathEnv = System.getenv("PATH");
